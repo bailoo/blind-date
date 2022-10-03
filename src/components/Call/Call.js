@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, useDebugValue } from 'react';
 import {
   useParticipantIds,
   useDaily,
@@ -50,19 +50,58 @@ export default function Call() {
   const localParticipant = useLocalParticipant();
   const isAlone = useMemo(() => remoteParticipantIds?.length < 1, [remoteParticipantIds]);
 
-  const startRecording = async () => {
-    await callObject.startRecording({
-      backgroundColor: '#FF1F2D3D',
+  const startRecording =  () => {
+    callObject.startRecording({
       layout: {
-        preset: 'active-participant',
-      },
+        preset: "custom",
+        participants: {
+          video: [ownerSessionId],
+          audio: ["*"],
+          sort: "active"
+        },
+        composition_params: {
+          "mode": "grid",
+          "videoSettings.showParticipantLabels": true
+        }
+      }
     });
+    
   };
+
+  const updateRecording = () => {
+
+    const feedsArray = [ownerSessionId];
+
+    for(let key in userDetails){
+      if(userDetails[key] == true){
+        feedsArray.push(key);
+      }
+    }
+
+    callObject.updateRecording({
+      layout: {
+        preset: "custom",
+        participants: {
+          video: feedsArray,
+          audio: ["*"],
+          sort: "active"
+        },
+        composition_params: {
+          "mode": "grid",
+          "videoSettings.showParticipantLabels": true
+        }
+      }
+    })
+
+  }
+
+
+
+
 
 
   const sendAppMessage = useAppMessage({
       onAppMessage: useCallback((ev) => {
-
         setUserDetails(ev.data.userDetails)
         if(localParticipant.owner == true){
           return;
@@ -81,13 +120,23 @@ export default function Call() {
   });
 
   useEffect(() => {
+    if(ownerSessionId!=null){
+      startRecording();
+    }
+  }, [ownerSessionId]);
+
+  useEffect(() => {
+    updateRecording();
+  })
+
+
+  useEffect(() => {
     if (localParticipant == null || localParticipant == undefined || value >= 2) {
       return;
     }
     setValue(2);
     if (isOwner) {
       setOwnerSessionId(localParticipant.session_id);
-      startRecording();
     }
     const newUserDetails = userDetails;
     newUserDetails[localParticipant.session_id] = false;
@@ -102,11 +151,7 @@ export default function Call() {
 
   useEffect(() => {
     callObject.on('participant-joined', (user) => {
-
-
       const newUserDetails = userDetails;
-
-
       newUserDetails[user.participant.session_id] = false;
       setUserDetails(newUserDetails)
 
