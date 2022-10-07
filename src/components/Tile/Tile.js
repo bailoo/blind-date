@@ -111,7 +111,7 @@ export default function Tile({ id, isLocal, isPinned, onPin, onUnpin , userDetai
           
           <div className='icon'>
 
-             <img src='https://i.im.ge/2022/09/13/1TRG4S.icon-camera-off-removebg-preview.png'/> 
+             <img src='https://i.ibb.co/HdbQVX9/camera-on-off-8-31-21-shutterstock-1781571614-620x400-removebg-preview.png'/> 
           </div>
         }
 

@@ -85,16 +85,16 @@ export default function Tray({ leaveCall }) {
       {/*   from the chat UI and not just the Tray.*/}
       <Chat showChat={showChat} toggleChat={toggleChat} />
       <div className="tray-buttons-container">
-        {/* <div className="controls">
-          <button onClick={toggleVideo}>
+        <div className="controls">
+          {/* <button onClick={toggleVideo}>
             {mutedVideo ? <CameraOff /> : <CameraOn />}
             {mutedVideo ? 'Turn camera on' : 'Turn camera off'}
-          </button>
+          </button> */}
           <button onClick={toggleAudio}>
             {mutedAudio ? <MicrophoneOff /> : <MicrophoneOn />}
             {mutedAudio ? 'Unmute mic' : 'Mute mic'}
           </button>
-        </div> */}
+        </div>
         <div className="actions">
           <button onClick={toggleMeetingInformation}>
             <Info />
