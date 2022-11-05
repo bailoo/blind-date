@@ -30,10 +30,10 @@ async function createRoom() {
     body: JSON.stringify(options),
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.REACT_APP_DAILY_API_KEY}`,
+      Authorization: `Bearer 47962ceaf384a69490add18e4f3875e3601550cb78148c0386d3320fb2b54e5c`,
     },
   });
-
+  console.log(response);
   return await response.json();
 }
 
