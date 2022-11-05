@@ -48,6 +48,8 @@ export default function Call() {
 
   /* This is for displaying our self-view. */
   const localParticipant = useLocalParticipant();
+
+  
   const isAlone = useMemo(() => remoteParticipantIds?.length < 1, [remoteParticipantIds]);
 
   const startRecording =  () => {
@@ -60,7 +62,7 @@ export default function Call() {
           sort: "active"
         },
         composition_params: {
-          "mode": "grid",
+          "mode": "dominant",
           "videoSettings.showParticipantLabels": true
         }
       }
@@ -69,6 +71,9 @@ export default function Call() {
   };
 
   const updateRecording = () => {
+    if(isOwner == false){
+      return ;
+    }
 
     const feedsArray = [ownerSessionId];
 
@@ -83,11 +88,11 @@ export default function Call() {
         preset: "custom",
         participants: {
           video: feedsArray,
-          audio: ["*"],
+          audio: ["*"]  ,
           sort: "active"
         },
         composition_params: {
-          "mode": "grid",
+          "mode": "dominant",
           "videoSettings.showParticipantLabels": true
         }
       }
@@ -95,6 +100,12 @@ export default function Call() {
 
   }
 
+
+  function startLiveStreaming() {
+    callObject.startLiveStreaming({ rtmpUrl: 'rtmp://a.rtmp.youtube.com/live2/w37d-zfk0-21ma-xsk2-7jy7' });
+  }
+
+  
 
 
 
@@ -122,12 +133,13 @@ export default function Call() {
   useEffect(() => {
     if(ownerSessionId!=null){
       startRecording();
+      startLiveStreaming();
     }
   }, [ownerSessionId]);
 
   useEffect(() => {
     updateRecording();
-  })
+  }, [userDetails])
 
 
   useEffect(() => {
