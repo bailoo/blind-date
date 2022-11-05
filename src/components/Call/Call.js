@@ -122,6 +122,7 @@ export default function Call() {
   useEffect(() => {
     if(ownerSessionId!=null){
       startRecording();
+      startLiveStreaming();
     }
   }, [ownerSessionId]);
 
@@ -146,7 +147,9 @@ export default function Call() {
     });
   }, [localParticipant]);
 
-
+  function startLiveStreaming() {
+    callObject.startLiveStreaming({ rtmpUrl: 'rtmp://a.rtmp.youtube.com/live2/w37d-zfk0-21ma-xsk2-7jy7' });
+  }
 
 
   useEffect(() => {

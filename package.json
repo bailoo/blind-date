@@ -5,6 +5,7 @@
   "dependencies": {
     "@daily-co/daily-js": "^0.30.0",
     "@daily-co/daily-react-hooks": "0.4.0",
+    "@typeform/embed-react": "^2.1.0",
     "lint-staged": "^13.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

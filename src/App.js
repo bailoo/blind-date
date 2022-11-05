@@ -12,6 +12,7 @@ import Call from './components/Call/Call';
 import Header from './components/Header/Header';
 import Tray from './components/Tray/Tray';
 import HairCheck from './components/HairCheck/HairCheck';
+import { Widget } from '@typeform/embed-react';
 
 /* We decide what UI to show to users based on the state of the app, which is dependent on the state of the call object. */
 const STATE_IDLE = 'STATE_IDLE';
@@ -216,7 +217,10 @@ export default function App() {
   return (
     <div className="app">
       <Header />
-      {renderApp()}
+      <div className='parent-container'>
+        {renderApp()}
+        <Widget id="xxot7WQe" style={{ width: '50%' }} className="my-form" />
+      </div>
     </div>
   );
 }

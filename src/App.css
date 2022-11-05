@@ -68,3 +68,14 @@ video {
 .api-error a:visited {
   color: var(--white);
 }
+
+
+.parent-container {
+  display: flex;
+  flex-wrap: nowrap;
+
+}
+
+.parent-container > * {
+  width: 100%;
+}
